@@ -2,7 +2,7 @@
 
 This Python package developed to streamline the interaction with Amazon Simple Storage Service S3 offered by AWS.
 
-It allows you to easily interact with data files on AWS S3 Storage using different operations such as Read, Write, Copy, Delete using boto3 API client integration with AWS.
+It allows you to easily interact with data files on AWS S3 Storage using different operations such as Read, Write, Copy, Delete by utilizing boto3 API client integration with AWS.
 
 The functionality that offered by this package version:
 
