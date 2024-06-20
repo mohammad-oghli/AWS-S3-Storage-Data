@@ -35,7 +35,7 @@ After installing AWS CLI for your OS open your terminal or command line and run 
 
 You will prompt to enter your AWS IAM user `AWS Access Key ID` and `AWS Secret Access Key`
 
-![](docs_assets/Screenshot from 2024-06-20 23-02-52.png)
+![alt text](docs_assets/aws-configure-linux.png)
 
 
 Shared credentials located by default in this file in your system `~/.aws/credentials`
