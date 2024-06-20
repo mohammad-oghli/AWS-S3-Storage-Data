@@ -6,7 +6,7 @@ It allows you to easily interact with data files on AWS S3 Storage using differe
 
 The functionality that offered by this package version:
 
-* Creating AWS S3 Storage object 
+* Creating AWS S3 Storage Object 
 * Read File from AWS S3 Storage
 * Write File to AWS S3 Storage
 * Copy File from AWS S3 Storage
@@ -42,7 +42,7 @@ Shared credentials located by default in this file in your system `~/.aws/creden
 
 ### Using Environment Variables
 
-In this method you don't need to install **AWS CLI**, but it's preferred to install it in your OS in case you need to check your aws services from you local machine
+In this method you don't need to install **AWS CLI**, but it's preferred to install it in your OS in case you need to check your aws services from your local machine
 
 You can set AWS credentials as environment variables in your OS 
 
@@ -78,7 +78,7 @@ You can set AWS credentials as environment variables in your OS
 
 ## Documentation 
 
-This [Tutorial Notebook](tutorial_notebook.ipynb) contains comprehensive guide documentation on how to use AWS S3 Storage Data Package
+This [Tutorial Notebook](tutorial_notebook.ipynb) contains comprehensive guide and documentation on how to use AWS S3 Storage Data Package
 
 **Note:** `data_sample` directory contains all the data files used in AWS S3 tutorial notebook
 
