@@ -32,8 +32,6 @@ class StorageS3:
         return object_content
 
     def write_file(self, binary_data, output_path):
-        # if html:
-        #     self.s3_client.put_object(Body=binary_data, ContentType='text/html', Bucket=self.name, Key=output_path)
         self.s3_client.put_object(Body=binary_data, Bucket=self.name, Key=output_path)
 
     # def write_html_file(self, html_data, output_path):
@@ -80,7 +78,6 @@ class StorageS3:
                     src_key = obj['Key']
                     # Construct the destination key maintaining directory structure
                     dest_key = dest_dir_path + src_key
-
                     # Copy the object
                     self.s3_client.copy_object(
                         Bucket=dest_bucket,
@@ -100,7 +97,6 @@ class StorageS3:
                 for obj in page['Contents']:
                     # Construct the source object keys
                     src_key = obj['Key']
-
                     # Set permission for the object
                     self.s3_client.put_object_acl(
                         ACL=acl_permission, Bucket=self.name, Key=src_key
