@@ -63,7 +63,7 @@ You can set AWS credentials as environment variables in your OS
 
 * Copy `S3` module file into your project directory 
 * Install python package dependency 
-  * You can install the package either by adding it to your `requirement.txt` file:
+  * You can install the package either by adding it to your `requirements.txt` file:
      
     add `boto3==1.34.127` to it
     
