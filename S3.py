@@ -18,7 +18,10 @@ class StorageS3:
             boto3.setup_default_session(region_name=region_name)
             print("Default AWS Region has been set up")
 
-    def __init__(self, name, default_region='me-central-1'):
+    # The default value for region 'us-east-1'
+    # when you don't set default_region attribute of the new S3 object
+    # it will create S3 object in 'us-east-1' region
+    def __init__(self, name, default_region='us-east-1'):
         StorageS3.set_default_region(default_region)
         # Default setting to use AWS configure shared credentials in your OS
         # Credentials located by default in ~/.aws/credentials
