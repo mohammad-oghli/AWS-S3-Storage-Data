@@ -2,7 +2,19 @@ import boto3
 
 
 class StorageS3:
+    """
+    A class representing aws s3 storage.
+
+    Attributes:
+        name (str): The Name of the aws s3 bucket.
+        default_region (str): The default region for aws s3 bucket.
+        recent_def_region (list): A list containing recent default region of s3 objects.
+    """
+
     recent_def_region = []
+    """
+        A class attribute to store recent default region of s3 objects
+    """
 
     @classmethod
     def set_default_region(cls, region_name):
@@ -22,6 +34,14 @@ class StorageS3:
     # when you don't set default_region attribute of the new S3 object
     # it will create S3 object in 'us-east-1' region
     def __init__(self, name, default_region='us-east-1'):
+        """
+        Initializes StorageS3 object.
+
+        Parameters:
+            name (str): The name of the aws s3 bucket.
+            default_region (str): The default region for aws s3 bucket.
+        """
+
         StorageS3.set_default_region(default_region)
         # Default setting to use AWS configure shared credentials in your OS
         # Credentials located by default in ~/.aws/credentials
@@ -30,17 +50,41 @@ class StorageS3:
         self.name = name
 
     def read_file(self, file_path):
+        """
+        Read file in aws s3 storage.
+
+        Parameters:
+            file_path (str): File location in s3 bucket.
+
+        Returns:
+            bytes: Object content of the file in byte format.
+        """
         response = self.s3_client.get_object(Bucket=self.name, Key=file_path)
         object_content = response['Body'].read()
         return object_content
 
     def write_file(self, binary_data, output_path):
+        """
+        Write file in aws s3 storage.
+
+        Parameters:
+            binary_data (bytes): Data content to write in new file.
+            file_path (str): File location in s3 bucket.
+        """
         self.s3_client.put_object(Body=binary_data, Bucket=self.name, Key=output_path)
 
     # def write_html_file(self, html_data, output_path):
     #     self.s3_client.put_object(Body=html_data, ContentType='text/html', Bucket=self.name, Key=output_path)
 
     def copy_file(self, src_file_path, dest_bucket, dest_file_path=''):
+        """
+        Copy file from aws s3 storage.
+
+        Parameters:
+            src_file_path (str): The location of the file to copy in source s3 bucket.
+            dest_bucket (str): The destination s3 bucket that will store the copied file.
+            dest_file_path (str): The location of copied file in destination s3 bucket.
+        """
         cp_src = {'Bucket': self.name, 'Key': src_file_path}
         # Copy the object
         self.s3_client.copy_object(
@@ -51,9 +95,24 @@ class StorageS3:
         print(f"Copied {src_file_path} to {dest_file_path}")
 
     def delete_file(self, file_path):
+        """
+        Delete file from aws s3 storage.
+
+        Parameters:
+            file_path (str): File location in s3 bucket.
+        """
         self.s3_client.delete_object(Bucket=self.name, Key=file_path)
 
     def get_file_permission(self, file_path):
+        """
+        Get file access permission policy in aws s3 storage.
+
+        Parameters:
+            file_path (str): File location in s3 bucket.
+
+        Returns:
+            list: Dict contains access permission policy information of the file.
+        """
         response = self.s3_client.get_object_acl(
             Bucket=self.name,
             Key=file_path,
@@ -61,6 +120,13 @@ class StorageS3:
         return response['Grants']
 
     def set_file_permission(self, file_path, public=False):
+        """
+        Set file access permission policy in aws s3 storage.
+
+        Parameters:
+            file_path (str): File location in s3 bucket.
+            public (bool): Access permission type of the file which is public or private access permission.
+        """
         if public:
             self.s3_client.put_object_acl(
                 ACL="public-read", Bucket=self.name, Key=file_path
@@ -72,6 +138,14 @@ class StorageS3:
         return self.get_file_permission(file_path)
 
     def copy_directory_files(self, src_dir_path, dest_bucket, dest_dir_path=''):
+        """
+        Copy Directory files from aws s3 storage.
+
+        Parameters:
+            src_dir_path (str): The location of the directory to copy in source s3 bucket.
+            dest_bucket (str): The destination s3 bucket that will store the copied directory files.
+            dest_dir_path (str): The location of copied directory in destination s3 bucket.
+        """
         paginator = self.s3_client.get_paginator('list_objects_v2')
         # Paginate through the source directory
         for page in paginator.paginate(Bucket=self.name, Prefix=src_dir_path):
