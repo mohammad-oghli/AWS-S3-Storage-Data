@@ -126,6 +126,9 @@ class StorageS3:
         Parameters:
             file_path (str): File location in s3 bucket.
             public (bool): Access permission type of the file which is public or private access permission.
+
+        Returns:
+            list: Dict contains new access permission policy information of the file.
         """
         if public:
             self.s3_client.put_object_acl(
@@ -164,6 +167,13 @@ class StorageS3:
                     print(f"Copied {src_key} to {dest_key}")
 
     def set_directory_permission(self, dir_path, public=False):
+        """
+        Set directory files access permission policy in aws s3 storage.
+
+        Parameters:
+            dir_path (str): The location of the directory in s3 bucket.
+            public (bool): Access permission type of the directory files which is public or private access permission.
+        """
         paginator = self.s3_client.get_paginator('list_objects_v2')
         acl_permission = "private"
         if public:
