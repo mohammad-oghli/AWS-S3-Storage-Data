@@ -69,7 +69,7 @@ class StorageS3:
 
         Parameters:
             binary_data (bytes): Data content to write in new file.
-            file_path (str): File location in s3 bucket.
+            output_path (str): The location of created file in s3 bucket.
         """
         self.s3_client.put_object(Body=binary_data, Bucket=self.name, Key=output_path)
 
