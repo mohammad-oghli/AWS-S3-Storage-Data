@@ -49,6 +49,19 @@ class StorageS3:
         self.s3_client = boto3.client('s3')
         self.name = name
 
+    def list_content(self):
+        """
+        List all directories and files in the bucket.
+
+        Returns:
+            list: List of all directories and files keys.
+        """
+        content_keys = []
+        response = self.s3_client.list_objects(Bucket=self.name)
+        for obj in response['Contents']:
+            content_keys.append(obj['Key'])
+        return content_keys
+
     def read_file(self, file_path):
         """
         Read file in aws s3 storage.
