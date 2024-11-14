@@ -70,8 +70,11 @@ class StorageS3:
         Parameters:
             binary_data (bytes): Data content to write in new file.
             output_path (str): The location of written file in s3 bucket.
+
+        Returns:
+            list: Dict contains response status information of post request.
         """
-        self.s3_client.put_object(Body=binary_data, Bucket=self.name, Key=output_path)
+        return self.s3_client.put_object(Body=binary_data, Bucket=self.name, Key=output_path)
 
     # def write_html_file(self, html_data, output_path):
     #     self.s3_client.put_object(Body=html_data, ContentType='text/html', Bucket=self.name, Key=output_path)
