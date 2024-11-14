@@ -7,6 +7,7 @@ It allows you to easily interact with data files on AWS S3 Storage using differe
 The functionality that offered by this package version:
 
 * Creating AWS S3 Storage Object 
+* List Directories and Files in AWS S3 Storage
 * Read File from AWS S3 Storage
 * Write File to AWS S3 Storage
 * Copy File from AWS S3 Storage
