@@ -85,9 +85,12 @@ class StorageS3:
             output_path (str): The location of written file in s3 bucket.
 
         Returns:
-            list: Dict contains response status information of post request.
+            boolean: response status of write operation.
         """
-        return self.s3_client.put_object(Body=binary_data, Bucket=self.name, Key=output_path)
+        response = self.s3_client.put_object(Body=binary_data, Bucket=self.name, Key=output_path)
+        if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+            return True
+        return False
 
     # def write_html_file(self, html_data, output_path):
     #     self.s3_client.put_object(Body=html_data, ContentType='text/html', Bucket=self.name, Key=output_path)
@@ -116,8 +119,13 @@ class StorageS3:
 
         Parameters:
             file_path (str): File location in s3 bucket.
+
+        boolean: response status of delete operation.
         """
-        self.s3_client.delete_object(Bucket=self.name, Key=file_path)
+        response = self.s3_client.delete_object(Bucket=self.name, Key=file_path)
+        if response['ResponseMetadata']['HTTPStatusCode'] == 204:
+            return True
+        return False
 
     def get_file_permission(self, file_path):
         """
